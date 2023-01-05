@@ -32,11 +32,13 @@ function initActions() {
     for (let i = 0; i < bookContainer.length; i++){
         bookContainer[i].addEventListener('dblclick', function(event){
             event.preventDefault();
-            bookContainer[i].classList.add('favorite');
             let bookID = bookContainer[i].getAttribute('data-id');
-
             if (!favoriteBooks.includes(bookID)){
                 favoriteBooks.push(bookID);
+                bookContainer[i].classList.add('favorite');
+            } else {
+                favoriteBooks.pop(bookID);
+                bookContainer[i].classList.remove('favorite');
             }
             // console.log('obj', bookContainer[i].getAttribute('data-id'));
             // console.log('favoriteBooks', favoriteBooks);
