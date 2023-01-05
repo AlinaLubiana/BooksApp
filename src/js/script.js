@@ -26,24 +26,22 @@ function renderBooks(){
 }
 
 function initActions() {
-
-    const bookContainer = document.querySelectorAll('a.book__image');
-
-    for (let i = 0; i < bookContainer.length; i++){
-        bookContainer[i].addEventListener('dblclick', function(event){
-            event.preventDefault();
-            let bookID = bookContainer[i].getAttribute('data-id');
+    document.querySelector(select.containerOf.bookList).addEventListener("click", function(event) {
+        let book = event.target.offsetParent;
+        event.preventDefault(); // with dblClick it's doesn't work, Why?
+        if(book.classList.contains('book__image')) {        
+            book.classList.add('favorite');
+            let bookID = book.getAttribute('data-id');
             if (!favoriteBooks.includes(bookID)){
                 favoriteBooks.push(bookID);
-                bookContainer[i].classList.add('favorite');
+                book.classList.add('favorite');
             } else {
                 favoriteBooks.pop(bookID);
-                bookContainer[i].classList.remove('favorite');
+                book.classList.remove('favorite');
             }
-            // console.log('obj', bookContainer[i].getAttribute('data-id'));
-            // console.log('favoriteBooks', favoriteBooks);
-        });
-    }
+        }        
+        console.log('favoriteBooks', favoriteBooks);
+    });
 }
 
 renderBooks();
