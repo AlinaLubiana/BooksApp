@@ -14,6 +14,7 @@ const templates = {
 };
 
 let favoriteBooks = [];
+let filtersCheckBox = [];
 
 function renderBooks(){
 
@@ -40,8 +41,29 @@ function initActions() {
                 book.classList.remove('favorite');
             }
         }        
-        console.log('favoriteBooks', favoriteBooks);
+        // console.log('favoriteBooks', favoriteBooks);
     });
+
+    document.querySelector('.filters').addEventListener("click", function(event){
+
+        if(event.target.getAttribute('type') == "checkbox") {
+            if(event.target.checked) {
+                // console.log('checked');
+                filtersCheckBox.push(event.target.getAttribute('value'));
+                
+
+            } else{
+                filtersCheckBox.splice(filtersCheckBox.indexOf(event.target.getAttribute('value')),1);
+                // console.log('unchecked');
+            }
+            console.log('filters', event.target.getAttribute('value'));
+            console.log(event.target);
+        }
+        console.log('filters', filtersCheckBox);
+        // event.preventDefault();
+    });
+
+    
 }
 
 renderBooks();
