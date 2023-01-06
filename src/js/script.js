@@ -61,12 +61,40 @@ function initActions() {
         }
         console.log('filters', filtersCheckBox);
         // event.preventDefault();
+        filterBooks();
     });
-
-    
 }
+
+function filterBooks(){
+    for(let bookData of dataSource.books){
+        const generatedHTML = templates.bookTemplate(dataSource.books[bookData]);
+        let shouldBeHidden = false;
+
+        for(let f of filtersCheckBox){
+            console.log('f', f);
+            console.log('book',bookData.details);
+            if(!bookData.details[f]){
+                shouldBeHidden = true;
+                break;
+            }
+        }
+        const bookContainer = document.querySelectorAll('a.book__image');
+        for (let i = 0; i < bookContainer.length; i++){
+            if(bookContainer[i].getAttribute('data-id') == bookData.id){
+                if(shouldBeHidden){
+                    bookContainer[i].classList.add('hidden');
+                } else{
+                    bookContainer[i].classList.remove('hidden');
+                }
+            }
+
+        // let bookElement = utils.createDOMFromHTML(generatedHTML);
+        // const bookContainer = document.querySelector(select.containerOf.bookList);
+        // bookContainer.appendChild(bookElement);
+        }
+    }
+}
+
 
 renderBooks();
 initActions();
-
-
