@@ -18,11 +18,32 @@ let filtersCheckBox = [];
 
 function renderBooks(){
 
-    for(let bookData in dataSource.books){
-        const generatedHTML = templates.bookTemplate(dataSource.books[bookData]);
+    for(let bookData  of dataSource.books){
+        const generatedHTML = templates.bookTemplate(bookData);
         let bookElement = utils.createDOMFromHTML(generatedHTML);
+        // console.log('bookContainer', bookElement.querySelector('.book__rating__fill').style.cssText = "background: linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%);");
+       
+        let ratingContainer = bookElement.querySelector('.book__rating__fill');
+        let ratingStyle = '';
+        let ratingWidth = bookData.rating * 10;
+        if(bookData.rating < 6){
+            ratingStyle = "background: linear-gradient(to bottom,  #fefcea 0%, #f1da36 100%); width:" + ratingWidth + "%";
+        }
+        if(bookData.rating > 6 && bookData.rating <= 8){
+            ratingStyle = "background: linear-gradient(to bottom, #b4df5b 0%,#b4df5b 100%); width:" + ratingWidth + "%";
+        }
+        if(bookData.rating > 8 && bookData.rating <= 9){
+            ratingStyle = "background: linear-gradient(to bottom, #299a0b 0%, #299a0b 100%); width:" + ratingWidth + "%";
+        }
+        if(bookData.rating > 9){
+            ratingStyle = "background: linear-gradient(to bottom, #ff0084 0%,#ff0084 100%); width:" + ratingWidth + "%";
+        }
+        ratingContainer.style.cssText = ratingStyle;
+
+
         const bookContainer = document.querySelector(select.containerOf.bookList);
         bookContainer.appendChild(bookElement);
+        
     }
 }
 
